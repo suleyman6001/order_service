@@ -1,0 +1,25 @@
+services:
+  order_db:
+    image: postgres:18
+    container_name: order_db
+    environment:
+      POSTGRES_DB: order_service
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - "5432:5432"
+    volumes:
+      - order_service_pgdata:/var/lib/postgresql
+
+  app:
+    build: .
+    container_name: order_service
+    depends_on:
+      - order_db
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+
+volumes:
+  order_service_pgdata:
