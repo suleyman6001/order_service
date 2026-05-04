@@ -33,7 +33,7 @@ public class OrderService {
         OrderResponseDto responseDto = new OrderResponseDto();
         responseDto.setOrderId(order.getId());
         responseDto.setProductCode(order.getProductCode());
-        responseDto.setQuantity(order.getQuantity());
+        responseDto.setRequestedQuantity(order.getQuantity());
         responseDto.setCustomerId(order.getCustomerId());
         responseDto.setStatus(order.getStatus());
         responseDto.setCreatedAt(order.getCreatedAt());

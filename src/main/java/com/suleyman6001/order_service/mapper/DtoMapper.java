@@ -10,7 +10,7 @@ public class DtoMapper {
 
         dto.setCustomerId(order.getCustomerId());
         dto.setProductCode(order.getProductCode());
-        dto.setQuantity(order.getQuantity());
+        dto.setRequestedQuantity(order.getQuantity());
         dto.setStatus(order.getStatus());
         dto.setCreatedAt(order.getCreatedAt());
 

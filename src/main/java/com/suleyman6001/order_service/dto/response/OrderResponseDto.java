@@ -7,7 +7,7 @@ public class OrderResponseDto {
 
     private Long orderId;
     private String productCode;
-    private Integer quantity;
+    private Integer requestedQuantity;
     private String customerId;
     private Status status;
     private LocalDateTime createdAt;
@@ -15,10 +15,10 @@ public class OrderResponseDto {
     public OrderResponseDto() {
     }
 
-    public OrderResponseDto(Long orderId, String productCode, Integer quantity, String customerId, Status status, LocalDateTime createdAt) {
+    public OrderResponseDto(Long orderId, String productCode, Integer requestedQuantity, String customerId, Status status, LocalDateTime createdAt) {
         this.orderId = orderId;
         this.productCode = productCode;
-        this.quantity = quantity;
+        this.requestedQuantity = requestedQuantity;
         this.customerId = customerId;
         this.status = status;
         this.createdAt = createdAt;
@@ -40,12 +40,12 @@ public class OrderResponseDto {
         this.productCode = productCode;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getRequestedQuantity() {
+        return requestedQuantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setRequestedQuantity(Integer requestedQuantity) {
+        this.requestedQuantity = requestedQuantity;
     }
 
     public String getCustomerId() {
@@ -77,7 +77,7 @@ public class OrderResponseDto {
         return "OrderCreationResponseDto{" +
                 "orderId='" + orderId + '\'' +
                 ", productCode='" + productCode + '\'' +
-                ", quantity=" + quantity +
+                ", requestedQuantity=" + requestedQuantity +
                 ", customerId='" + customerId + '\'' +
                 ", status=" + status +
                 ", createdAt=" + createdAt +

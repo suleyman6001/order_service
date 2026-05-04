@@ -8,16 +8,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderEventProducer {
-    @Value("${app.kafka.topics.order-created}")
-    private String ORDER_CREATED_TOPIC;
-    private KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final String orderCreatedTopic;
 
     @Autowired
-    public OrderEventProducer(KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate) {
+    public OrderEventProducer(KafkaTemplate<String, Object> kafkaTemplate,
+                              @Value("${app.kafka.topics.order-created}") String orderCreatedTopic) {
         this.kafkaTemplate = kafkaTemplate;
+        this.orderCreatedTopic = orderCreatedTopic;
     }
 
     public void sendOrderCreatedEvent(OrderCreatedEvent orderCreatedEvent) {
-        kafkaTemplate.send(ORDER_CREATED_TOPIC, String.valueOf(orderCreatedEvent.orderId()), orderCreatedEvent);
+        kafkaTemplate.send(orderCreatedTopic, String.valueOf(orderCreatedEvent.orderId()), orderCreatedEvent);
     }
 }
