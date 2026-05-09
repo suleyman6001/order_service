@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/shopping_platform/order_service")
+@RequestMapping("/orders")
 public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
     private final OrderService orderService;
@@ -21,7 +21,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<OrderResponseDto> processOrder(@Valid @RequestBody OrderCreationRequestDto orderCreationRequestDto) {
         logger.info("Received the order from client");
         OrderResponseDto responseDto = orderService.processIncomingOrder(orderCreationRequestDto);
