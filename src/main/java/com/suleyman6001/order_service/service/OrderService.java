@@ -6,6 +6,7 @@ import com.suleyman6001.order_service.dto.response.OrderResponseDto;
 import com.suleyman6001.order_service.entity.Order;
 import com.suleyman6001.order_service.entity.Status;
 import com.suleyman6001.order_service.kafka.producer.OrderEventProducer;
+import com.suleyman6001.order_service.mapper.DtoMapper;
 import com.suleyman6001.order_service.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +31,7 @@ public class OrderService {
         Order order = persistOrder(creationRequestDto);
         logger.info("Order persisted: {}", order);
 
-        OrderResponseDto responseDto = new OrderResponseDto();
-        responseDto.setOrderId(order.getId());
-        responseDto.setProductCode(order.getProductCode());
-        responseDto.setRequestedQuantity(order.getQuantity());
-        responseDto.setCustomerId(order.getCustomerId());
-        responseDto.setStatus(order.getStatus());
-        responseDto.setCreatedAt(order.getCreatedAt());
+        OrderResponseDto responseDto = DtoMapper.fromEntityToDto(order);
 
         // Sending order-created event to kafka broker
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(order.getId(), order.getProductCode(), order.getQuantity(), order.getCustomerId());
@@ -47,14 +42,7 @@ public class OrderService {
     }
 
     private Order persistOrder(OrderCreationRequestDto creationRequestDto) {
-        Order order = new Order();
-        String normalizedProductCode = creationRequestDto.getProductCode().trim().toUpperCase();
-
-        order.setCustomerId(creationRequestDto.getCustomerId());
-        order.setProductCode(normalizedProductCode);
-        order.setQuantity(creationRequestDto.getRequestedQuantity());
-        order.setStatus(Status.CREATED);
-        order.setCreatedAt(LocalDateTime.now());
+        Order order = DtoMapper.fromDtoToEntity(creationRequestDto);
 
         // persist the order
         orderRepository.save(order);
