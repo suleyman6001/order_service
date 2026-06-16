@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaTopicConfig {
 
     @Bean
-    public NewTopic orderCreatedTopic(
-            @Value("${app.kafka.topics.order-created}") String topicName
-    ) {
+    public NewTopic orderCreatedTopic( @Value("${app.kafka.topics.order-created}") String topicName) {
         return new NewTopic(topicName, 1, (short) 1);
     }
 

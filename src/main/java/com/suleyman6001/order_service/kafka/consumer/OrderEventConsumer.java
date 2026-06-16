@@ -25,11 +25,7 @@ public class OrderEventConsumer {
     @KafkaListener(topics = "${app.kafka.topics.inventory-item-reservation-result}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeInventoryItemReservationResultEvent(InventoryItemReservationResultEvent resultEvent) {
         Long orderId = resultEvent.getOrderId();
-        String productCode = resultEvent.getProductCode();
-        Integer requestedQuantity = resultEvent.getRequestedQuantity();
-        String customerId = resultEvent.getCustomerId();
         Boolean reserved = resultEvent.getReserved();
-        String message = resultEvent.getMessage();
 
         logger.info("Inside consumeInventoryItemReservationResultEvent() method");
         logger.info(resultEvent.toString());
@@ -46,7 +42,6 @@ public class OrderEventConsumer {
         else {
             order.setStatus(Status.CONFIRMED);
         }
-
         orderRepository.save(order);
     }
 }

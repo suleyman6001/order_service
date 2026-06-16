@@ -1,8 +1,6 @@
 package com.suleyman6001.order_service.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class OrderCreationRequestDto {
 
@@ -13,7 +11,11 @@ public class OrderCreationRequestDto {
             message = "Product code must contain only letters, numbers, hyphens, and underscores"
     )
     private String productCode;
+
+    @NotNull
+    @Min(1)
     private Integer requestedQuantity;
+    @NotNull
     private String customerId;
 
     public OrderCreationRequestDto() {
